@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     static String Expression = new String(), fstExpression;
     static protected int index;
-    static protected TextView mainTextView;
+    static protected TextView mainTextView, subTextView;
     static boolean isPointUsed = false;
     static char calSymbol;
 
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isPointUsed = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        subTextView = (TextView)findViewById(R.id.subTV);
         mainTextView = (TextView)findViewById(R.id.mainTV);
         Button btnList[] = new Button[12], btnBackspace = (Button)findViewById(R.id.btnBackspace);
         Button btnSymbol[] = new Button[4], btnEqual = (Button)findViewById(R.id.btnequal);
@@ -80,16 +83,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 else {
                     Expression = Expression.substring(0,0);
-                    mainTextView.setText(Expression);
+                    mainTextView.setText(" ");
                 }
             }
         });
         btnBackspace.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Expression = Expression.substring(0,0);;
+                Expression = Expression.substring(0,0);
                 isPointUsed = false;
-                mainTextView.setText(Expression);
+                mainTextView.setText(" ");
+                subTextView.setText(" ");
                 return false;
             }
         });
@@ -106,11 +110,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         fstExpression = a.toString();
                     }
 
-                    Expression = Expression.substring(0,0);;
+                    Expression = Expression.substring(0,0);
                     isPointUsed = false;
                     mainTextView.setText(Expression);
                     calSymbol = buttonText.charAt(0);
                     Log.d("asdfasdfsadf", fstExpression);
+                    subTextView.setText(fstExpression);
                 }
             });
         }
@@ -142,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mainTextView.setText(Expression);
                 }
                 fstExpression = null;
+                subTextView.setText(" ");
             }
         });
     }
